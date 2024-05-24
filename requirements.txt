@@ -1,0 +1,13 @@
+# Autoscrap, Prepo
+pandas
+beautifulsoup4
+tqdm
+selenium
+webdriver_manager
+selenium-stealth
+sqlalchemy
+pymysql # untuk autoscrap
+
+# Web
+django
+mysqlclient # untuk django
