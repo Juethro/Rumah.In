@@ -36,8 +36,8 @@ def get_first_data(driver, page, connection, log):
         "harga" : [],
         "cicilan" : [],
         "kecamatan" : [],
-        "luas tanah" : [],
-        "luas bangunan" : [],
+        "luas_tanah_front" : [],
+        "luas_bangunan_front" : [],
         "link" : []
     }
     for i in tqdm(range(page), desc="Get Cover Data"):
@@ -56,11 +56,11 @@ def get_first_data(driver, page, connection, log):
             data["harga"].append(section.find("strong").get_text())
             data["cicilan"].append(section.find("em").get_text())
             data["kecamatan"].append([kecamatan.get_text() for kecamatan in section.find_all("span") if "Surabaya" in kecamatan.get_text()][0])
-            data["luas tanah"].append(section.find_all(class_ = "attribute-info")[0].get_text().replace("LT : ", ""))
+            data["luas_tanah_front"].append(section.find_all(class_ = "attribute-info")[0].get_text().replace("LT : ", ""))
             try:
-                data["luas bangunan"].append(section.find_all(class_ = "attribute-info")[1].get_text().replace("LB : ", ""))
+                data["luas_bangunan_front"].append(section.find_all(class_ = "attribute-info")[1].get_text().replace("LB : ", ""))
             except:
-                data["luas bangunan"].append("")
+                data["luas_bangunan_front"].append("")
             data["link"].append(section.a["href"])
         time.sleep(3)
 
@@ -90,7 +90,7 @@ def get_all_data(df_cover, driver, connection, log):
             items = soup.find_all(class_ = "listing-specification-v2__item-label")
             values = soup.find_all(class_ = "listing-specification-v2__item-value")
             for item, value in zip (items, values):
-                data_full[item.get_text()] = value.get_text()
+                data_full[item.get_text().lower().replace(" ", "_")] = value.get_text()
             desc = soup.find(class_ = "ui-atomic-text ui-atomic-text--styling-default ui-atomic-text--typeface-primary content-wrapper").get_text()
             data_full["deskripsi"] = desc
             data_full["fasilitas"] = ", ".join([fasilitas.get_text().strip() for fasilitas in soup.find_all(class_ = "ui-facilities-portal__text")])
@@ -106,12 +106,26 @@ def get_all_data(df_cover, driver, connection, log):
             time.sleep(10)
     return save_list
 
+def miss_handler_n_filter(df, scraped_link):
+    desired_columns = ['judul', 'harga', 'cicilan', 'kecamatan', 'luas_tanah_front', 'luas_bangunan_front', 'link', 'fasilitas', 'last_update','kamar_tidur', 'kamar_mandi', 'luas_tanah', 'luas_bangunan', 'carport', 'tipe_properti', 'sertifikat', 'daya_listrik', 'kamar_pembantu', 'kamar_mandi_pembantu', 'dapur', 'ruang_makan', 'ruang_tamu', 'kondisi_perabotan', 'material_bangunan', 'material_lantai', 'jumlah_lantai', 'hadap', 'konsep_dan_gaya_rumah', 'pemandangan', 'terjangkau_internet', 'lebar_jalan', 'tahun_dibangun', 'tahun_di_renovasi', 'sumber_air', 'hook', 'kondisi_properti', 'tipe_iklan', 'id_iklan', 'deskripsi', 'garasi', 'nomor_lantai']
+
+    for col in desired_columns:
+        if col not in df.columns:
+            df[col] = None
+
+    # Urutkan kolom sesuai daftar kolom yang diinginkan
+    df = df[desired_columns]
+
+    df = df[~df['link'].isin(scraped_link)]
+
+    return df, len(df)
+
 def log_handler(connection, log, msg):
     instruction = insert(log).values(log=f'{msg}', date=datetime.datetime.now())
     connection.execute(instruction)
     connection.commit()
 
-def main(connection, log, engine):
+def main(connection, log, engine, scraped_link):
     start = time.time()
     log_handler(connection, log, 'Get Rumah123 Data...')
     df_cover = get_first_data(driver, 3, connection, log)
@@ -119,10 +133,19 @@ def main(connection, log, engine):
     log_handler(connection, log, 'Get All Data...')
     save_list = get_all_data(df_cover, driver, connection, log)
 
-    log_handler(connection, log, 'Exporting Data...')
+    # Preprocess
+    log_handler(connection, log, 'First Preprocess Data...')
     df_detail = pd.DataFrame(save_list)
-    df_full = pd.merge(df_cover, df_detail, "left", on = "link")
-    df_full.to_sql('users_properti', con=engine, if_exists='replace', index=False)
+    df_full = pd.merge(df_cover, df_detail, "left", on = "link").drop_duplicates(subset='link')
+    df_full, jumlah = miss_handler_n_filter(df_full, scraped_link)
+
+    # Export
+    if jumlah == 0:
+        log_handler(connection, log, 'Data is Up To Date!')
+    else:
+        log_handler(connection, log, 'Exporting Data...')
+        df_full.to_csv('users_properti.csv', index=False)
+        # df_full.to_sql('users_properti', con=engine, index=False, if_exists='append')
 
     stop = time.time()
     waktu = stop-start

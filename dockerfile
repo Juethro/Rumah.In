@@ -1,13 +1,16 @@
-FROM fedora:39
+FROM python:3.10
 
-RUN dnf update -y
+WORKDIR /app
 
-# Install mysql-server and python3.10
-RUN dnf install -y mysql-server python3.10 python3.10-devel mysql-devel pkgconfig python3.10-pip
+COPY requirements.txt .
 
-# Install pip and Django
-RUN pip3 install -r requirements.txt -y
+RUN pip install --no-cache-dir -r requirements.txt
 
+COPY ./web/* .
+
+EXPOSE 8000
+
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
 # Install Chrome
 
 
