@@ -1,22 +1,29 @@
 FROM python:3.10
 
+# Set environment variables
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+
+# Set working directory di dalam kontainer
 WORKDIR /app
 
+# Salin file requirements.txt ke dalam kontainer
 COPY requirements.txt .
 
-RUN pip install --no-cache-dir -r requirements.txt
+# Install dependensi
+RUN pip install -r requirements.txt
 
-COPY ./web/* .
+# Salin semua file ke workdir
+COPY . .
 
+# Membuka akses ke port 8000
 EXPOSE 8000
 
+# Run cron + django
 CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
-# Install Chrome
 
 
-# Copy crontab config
 
 
-# Copy 
 
 

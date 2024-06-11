@@ -13,3 +13,6 @@ scikit-learn==1.4.2
 django
 django-extensions
 mysqlclient # untuk django
+
+# Modeling
+xgboost
