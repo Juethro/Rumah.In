@@ -1,19 +1,29 @@
-FROM fedora:39
+FROM python:3.10
 
-RUN dnf update -y
+# Set environment variables
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
 
-# Install mysql-server and python3.10
-RUN dnf install -y mysql-server python3.10 python3.10-devel mysql-devel pkgconfig python3.10-pip
+# Set working directory di dalam kontainer
+WORKDIR /app
 
-# Install pip and Django
-RUN pip3 install -r requirements.txt -y
+# Salin file requirements.txt ke dalam kontainer
+COPY requirements.txt .
 
-# Install Chrome
+# Install dependensi
+RUN pip install -r requirements.txt
+
+# Salin semua file ke workdir
+COPY . .
+
+# Membuka akses ke port 8000
+EXPOSE 8000
+
+# Run cron + django
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
 
 
-# Copy crontab config
 
 
-# Copy 
 
 
