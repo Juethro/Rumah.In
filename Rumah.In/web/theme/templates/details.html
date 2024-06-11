@@ -1,0 +1,78 @@
+{% load static tailwind_tags %}
+<html>
+    <head>
+        {% tailwind_css %}
+        <title>Rumah.In</title>
+    </head>
+    <nav class="bg-white shadow-md" style="font-family: Mitr">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center">
+                    <a href="index.html" class="flex-shrink-0">
+                        <img src="https://i.ibb.co.com/jb0zQww/Rumah-Rumah-1.png" alt="Logo" class="h-10 w-10">
+                    </a>
+                    <a href="index.html" class="ml-2 text-xl text-gray-900 hover:text-orange-400">Rumah.in</a>
+                </div>
+                <div class="flex items-center">
+                    <div class="hidden md:flex">
+                        <a href="#" class="ml-4 text-gray-800 hover:text-orange-400">Home</a>
+                        <a href="#" class="ml-4 text-gray-800 hover:text-orange-400">Dashboard</a>
+                        <a href="#" class="ml-4 text-gray-800 hover:text-orange-400">Analyzer</a>
+                    </div>
+                </div>
+                <!-- Tombol Hamburger untuk Tampilan Responsif -->
+                <div class="flex md:hidden">
+                    <button id="mobile-menu-btn" class="outline-none mobile-menu-btn">
+                        <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="h-1 bg-[#f2a057]"></div>
+        <!-- Menu Dropdown untuk Tampilan Responsif -->
+        <div id="mobile-menu" class="hidden md:hidden">
+            <a href="#" class="block py-2 px-4 text-sm text-gray-800 hover:text-orange-400">Home</a>
+            <a href="#" class="block py-2 px-4 text-sm text-gray-800 hover:text-orange-400">Dashboard</a>
+            <a href="#" class="block py-2 px-4 text-sm text-gray-800 hover:text-orange-400">Analyzer</a>
+        </div>
+    </nav>
+    <div class = "p-20 bg-gray-100 flex flex-col gap-12">
+        <h1 class = "text-4xl font-semibold">Rumah Baru Mewah Citraland Dekat Pakuwon Indah, Graha Family</h1>
+        <div class = "flex flex-row gap-12">
+            <div class = "basis-1/2">
+                <img src = "../static/images/rumah.jpg" class = "rounded-lg w-5/6">
+                <div class = "text-sky-700 font-medium underline text-xl pt-6 pb-4" style="font-family: Mitr">Deskripsi</div>
+                <div>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
+                    
+                    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                    
+                    Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Curabitur pretium tincidunt lacus. Nulla gravida orci a odio. Nullam varius, turpis et commodo pharetra, est eros bibendum elit, nec luctus magna felis sollicitudin mauris. Integer in mauris eu nibh euismod gravida. Duis ac tellus et risus vulputate vehicula. Donec lobortis risus a elit. Etiam tempor. Ut ullamcorper, ligula eu tempor congue, eros est euismod turpis, id tincidunt sapien risus a quam. Maecenas fermentum consequat mi. Donec 
+                </div>
+            </div>
+            <div class ="basis-1/2 flex flex-col gap-4">
+                <div class = "text-sky-700 font-medium underline text-xl" style="font-family: Mitr">More Details</div>
+                <div class = "bg-white rounded-2xl p-7 flex flex-col gap-1 text-lg">
+                    <h1>Luas Bangunan : </h1>
+                    <h1>Luas Tanah : </h1>
+                    <h1>Sertifikat : </h1>
+                    <h1>Tahun Dibangun : </h1>
+                    <h1>Tahun Direnovasi : </h1>
+                    <h1>Jumlah Kamar : </h1>
+                    <h1>Jumlah Kamar Mandi : </h1>
+                    <h1>Daya Listrik : </h1>
+                    <h1>Sumber Air : </h1>
+                    <h1>Luas Bangunan : </h1>
+                    <h1>Pemandangan : </h1>
+                    <h1>Gaya dan Konsep Rumah : </h1>
+                    <h1>Kawasan : </h1>
+                    <h1>Kondisi Rumah : </h1>
+                    <h1>Kondisi Perabotan : </h1>
+                    <h1>Jarak Rumah : </h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</html>
