@@ -125,10 +125,13 @@ def log_handler(connection, log, msg):
     connection.execute(instruction)
     connection.commit()
 
-def main(connection, log, engine, scraped_link):
+def main(connection, log, engine, scraped,scraped_link):
     start = time.time()
+    log_handler(connection, log, 'Delete Scraped Data...')
+    connection.execute(scraped.delete())
+
     log_handler(connection, log, 'Get Rumah123 Data...')
-    df_cover = get_first_data(driver, 3, connection, log)
+    df_cover = get_first_data(driver, 1, connection, log)
 
     log_handler(connection, log, 'Get All Data...')
     save_list = get_all_data(df_cover, driver, connection, log)
@@ -144,8 +147,8 @@ def main(connection, log, engine, scraped_link):
         log_handler(connection, log, 'Data is Up To Date!')
     else:
         log_handler(connection, log, 'Exporting Data...')
-        df_full.to_csv('users_properti.csv', index=False)
-        # df_full.to_sql('users_properti', con=engine, index=False, if_exists='append')
+        # df_full.to_csv('users_properti.csv', index=False)
+        df_full.to_sql('users_properti', con=engine, index=False, if_exists='append')
 
     stop = time.time()
     waktu = stop-start

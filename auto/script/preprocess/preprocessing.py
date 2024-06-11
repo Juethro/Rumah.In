@@ -1,5 +1,6 @@
 import pandas as pd
-from sklearn.preprocessing import LabelEncoder
+# from sklearn.preprocessing import LabelEncoder
+import pickle
 import numpy as np
 
 def convert_price_to_number(price_str):
@@ -12,7 +13,7 @@ def convert_price_to_number(price_str):
 
 def convert_area_to_number(area_str):
     if isinstance(area_str, str):
-        return pd.to_numeric(area_str.replace('m²', '').strip(), errors='coerce')
+        return pd.to_numeric(area_str.replace('sqm', '').strip(), errors='coerce')
     return area_str
 
 def convert_power_to_number(power_str):
@@ -28,45 +29,46 @@ def convert_width_to_number(width_str):
     return width_str
 
 def encode_and_fillna(df, columns):
-    le = LabelEncoder()
-    for col in columns:
-        if df[col].dtype == 'object':
-            df[col] = le.fit_transform(df[col].astype(str))
-
     numeric_cols = df.select_dtypes(include='number').columns
     median_values = df[numeric_cols].median()
     df = df.fillna(median_values)
     df.bfill(inplace=True)
     df.ffill(inplace=True)
+
+    for col in columns:
+        with open(f'./script/preprocess/labelencoder/label_encoder_{col}.pkl', 'rb') as f:
+            le = pickle.load(f)
+            df[col] = le.transform(df[col].astype(str))
     return df
 
 def clean_data(df):
-    df = df[(df['Tipe Properti'] == 'Rumah') & (df['Tipe Iklan'] == 'Dijual')]
+    df = df[(df['tipe_properti'] == 'Rumah') & (df['tipe_iklan'] == 'Dijual')]
     df.drop_duplicates(keep='first', inplace=True)
     df = df[df.kecamatan != 'Sidoarjo']
 
-    drop_columns = ['judul', 'link', 'last_update', 'ID Iklan', 'deskripsi', 'luas tanah', 'luas bangunan', 
-                    'Tipe Properti', 'Nomor Lantai', 'Tipe Iklan','cicilan','Latitude','Longitude']
+    drop_columns = ['last_update', 'id_iklan', 'deskripsi', 'luas_tanah_front', 'luas_bangunan_front', 
+                    'tipe_properti', 'nomor_lantai', 'tipe_iklan','cicilan','latitude','longitude']
     df.drop(columns=drop_columns, inplace=True)
 
     df['harga'] = df['harga'].apply(convert_price_to_number)
-    df['Luas Bangunan'] = df['Luas Bangunan'].apply(convert_area_to_number)
-    df['Luas Tanah'] = df['Luas Tanah'].apply(convert_area_to_number)
-    df['Daya Listrik'] = df['Daya Listrik'].apply(convert_power_to_number)
-    df['Lebar Jalan'] = df['Lebar Jalan'].apply(convert_width_to_number)
+    df['luas_bangunan'] = df['luas_bangunan'].apply(convert_area_to_number)
+    df['luas_tanah'] = df['luas_tanah'].apply(convert_area_to_number)
+    df['daya_listrik'] = df['daya_listrik'].apply(convert_power_to_number)
+    df['lebar_jalan'] = df['lebar_jalan'].apply(convert_width_to_number)
 
-    for col in ['Material Bangunan', 'Material Lantai']:
-        dummies = df[col].str.get_dummies(sep=', ')
+    for col in ['material_bangunan', 'material_lantai']:
+        dummies = df[col].str.get_dummies(sep=', ').rename(columns=lambda x: x.lower().replace(' ', '_'))
         df = pd.concat([df, dummies], axis=1)
         df.drop(columns=[col], inplace=True)
 
-    df['Kondisi Properti'] = df['Kondisi Properti'].replace('Bagus Sekali', 'Bagus')
+    df['kondisi_properti'] = df['kondisi_properti'].replace('Bagus Sekali', 'Bagus')
     df['kecamatan'] = df['kecamatan'].str.split(',').str[0]
     df = df[df.kecamatan != 'Sidoarjo']
 
-    label_columns = ['Sertifikat', 'Ruang Makan', 'Ruang Tamu', 'Kondisi Perabotan', 'Hadap', 
-                     'Konsep dan Gaya Rumah', 'Pemandangan', 'Terjangkau Internet', 'Sumber Air', 
-                     'Hook', 'Kondisi Properti', 'kecamatan']
+    label_columns = ['sertifikat', 'ruang_makan', 'ruang_tamu', 'kondisi_perabotan', 'hadap', 
+                        'konsep_dan_gaya_rumah', 'pemandangan', 'terjangkau_internet', 'sumber_air', 
+                        'hook', 'kondisi_properti', 'kecamatan']
+    
     df = encode_and_fillna(df, label_columns)
 
     mapping = {
@@ -81,9 +83,10 @@ def clean_data(df):
     }
     for key, value in mapping.items():
         df['fasilitas'] = df['fasilitas'].str.replace(key, value)
-    
-    facilities = df['fasilitas'].str.get_dummies(sep=', ')
+
+    facilities = df['fasilitas'].str.get_dummies(sep=', ').rename(columns=lambda x: x.lower().replace(' ', '_'))
     df = pd.concat([df, facilities], axis=1)
     df.drop(columns=['fasilitas'], inplace=True)
+
 
     return df

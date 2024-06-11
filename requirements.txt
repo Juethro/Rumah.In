@@ -7,8 +7,7 @@ webdriver_manager
 selenium-stealth
 sqlalchemy
 pymysql # untuk autoscrap
-ml-python
-tensorflow
+scikit-learn==1.4.2
 
 # Web
 django
