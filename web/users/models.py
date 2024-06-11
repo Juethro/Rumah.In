@@ -48,9 +48,10 @@ class Properti(models.Model):
     garasi = models.FloatField(null=True, blank=True)
     nomor_lantai = models.FloatField(null=True, blank=True)
 
-class LabelEncoder(models.Model):
+class ModelRegresi(models.Model):
     waktu = models.DateField()
-    label = models.BinaryField()
+    versi = models.CharField(max_length=100)
+    path = models.CharField(max_length=500)
 
 class Training(models.Model):
     judul = models.TextField(max_length=255)
