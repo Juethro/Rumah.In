@@ -1,0 +1,103 @@
+{% load static tailwind_tags %}
+<html>
+    <head>
+        {% tailwind_css %}
+        <title>Rumah.In</title>
+        {{map.header.render|safe}}
+    </head>
+    <nav class="bg-white shadow-md" style="font-family: Mitr">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center">
+                    <a href="index.html" class="flex-shrink-0">
+                        <img src="https://i.ibb.co.com/jb0zQww/Rumah-Rumah-1.png" alt="Logo" class="h-10 w-10">
+                    </a>
+                    <a href="index.html" class="ml-2 text-xl text-gray-900 hover:text-orange-400">Rumah.in</a>
+                </div>
+                <div class="flex items-center">
+                    <div class="hidden md:flex">
+                        <a href="#" class="ml-4 text-gray-800 hover:text-orange-400">Home</a>
+                        <a href="#" class="ml-4 text-gray-800 hover:text-orange-400">Dashboard</a>
+                        <a href="#" class="ml-4 text-gray-800 hover:text-orange-400">Analyzer</a>
+                    </div>
+                </div>
+                <!-- Tombol Hamburger untuk Tampilan Responsif -->
+                <div class="flex md:hidden">
+                    <button id="mobile-menu-btn" class="outline-none mobile-menu-btn">
+                        <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="h-1 bg-[#f2a057]"></div>
+        <!-- Menu Dropdown untuk Tampilan Responsif -->
+        <div id="mobile-menu" class="hidden md:hidden">
+            <a href="#" class="block py-2 px-4 text-sm text-gray-800 hover:text-orange-400">Home</a>
+            <a href="#" class="block py-2 px-4 text-sm text-gray-800 hover:text-orange-400">Dashboard</a>
+            <a href="#" class="block py-2 px-4 text-sm text-gray-800 hover:text-orange-400">Analyzer</a>
+        </div>
+    </nav>
+    <div class = "p-20 bg-gray-100 flex flex-col gap-8">
+        <h1 class = "text-4xl font-semibold">Hasil Analisis</h1>
+        <div>
+            <h1 class = "text-sky-700 font-medium underline text-2xl pb-4">Rumah Dengan Kelas Yang Sama</h1>
+            <div class = "flex flex-row">
+                <div id="map" class = "basis-1/2">
+                    {{ map|safe }}
+                </div>
+                <div class = "basis-1/2 flex flex-col gap-1">
+                    <div class = "p-4 bg-white rounded-br-xl rounded-tr-xl flex flex-col gap-3 h-full content-end">
+                        <h1 class = "text-xl">Rumah Baru Mewah Citraland Dekat Pakuwon Indah, Graha Family</h1>
+                        <text class = "text-sm text-neutral-500">Ciputra, Surabaya</text>
+                    </div>
+                    <div class = "p-4 bg-white rounded-br-xl rounded-tr-xl flex flex-col gap-3 h-full content-end">
+                        <h1 class = "text-xl">Rumah Baru Mewah Citraland Dekat Pakuwon Indah, Graha Family</h1>
+                        <text class = "text-sm text-neutral-500">Ciputra, Surabaya</text>
+                    </div>
+                    <div class = "p-4 bg-white rounded-br-xl rounded-tr-xl flex flex-col gap-3 h-full content-end">
+                        <h1 class = "text-xl">Rumah Baru Mewah Citraland Dekat Pakuwon Indah, Graha Family</h1>
+                        <text class = "text-sm text-neutral-500">Ciputra, Surabaya</text>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class = "prediction bg-white rounded-2xl p-6">
+            <div class = "prediction-number flex">
+                <div class = "basis-1/4 flex flex-col items-center">
+                    <h1 class = "text-sky-700 font-medium underline text-2xl text-center">Min. Range Price</h1>
+                    <text class = "font-bold text-2xl text-center">Rp1.200.000.000</text>
+                </div>
+                <div class = "basis-1/4 flex flex-col items-center">
+                    <h1 class = "text-sky-700 font-medium underline text-2xl text-center">Max. Range Price</h1>
+                    <text class = "font-bold text-2xl text-center">Rp1.800.000.000</text>
+                </div>
+                <div class = "basis-1/4 flex flex-col items-center">
+                    <h1 class = "text-sky-700 font-medium underline text-2xl text-center">Predicted Price</h1>
+                    <text class = "font-bold text-2xl text-center">Rp1.500.000.000</text>
+                </div>
+                <div class = "basis-1/4 flex flex-col items-center">
+                    <h1 class = "text-sky-700 font-medium underline text-2xl text-center">Kelas Rumah</h1>
+                    <text class = "font-bold text-2xl text-center">Class 6</text>
+                </div>
+            </div>
+            <div class = "clusters-charts flex flex-row">
+                <div id="donut-chart" class = "w-1/3 flex flex-col">
+                    {{ donut_chart|safe }}
+                    <p class = "text-sky-700 font-medium underline text-xl text-center">Jumlah Rumah Kelas 6 (%)</p>
+                </div>
+                <div id="bar-chart" class = "w-2/3 flex flex-col">
+                    {{bar_chart|safe}}
+                    <p class = "text-sky-700 font-medium underline text-xl text-center">Kawasan Rumah Kelas 6</p>
+                </div>
+            </div>
+        </div>
+        <div class = "bg-white rounded-2xl p-6">
+            <text class = "text-sky-700 font-medium underline text-2xl">Fluktuasi Harrga Rumah Kelas 6</text>
+            <div id = "line-chart">
+                {{line_chart|safe}}
+            </div>
+        </div>
+    </div>
+</html>

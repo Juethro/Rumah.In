@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Rumah-in: Real Estate Analyzer</title>
+
+    <!--    Tailwind-->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!--    Font-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Mitr:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Mitr:wght@200;300;400;500;600;700&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+</head>
+<body>
+<nav class="bg-white shadow-md" style="font-family: Mitr">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between h-16">
+            <div class="flex items-center">
+                <a href="index.html" class="flex-shrink-0">
+                    <img src="https://i.ibb.co.com/jb0zQww/Rumah-Rumah-1.png" alt="Logo" class="h-10 w-10">
+                </a>
+                <a href="index.html" class="ml-2 text-xl text-gray-900 hover:text-orange-400">Rumah.in</a>
+            </div>
+            <div class="flex items-center">
+                <div class="hidden md:flex">
+                    <a href="#" class="ml-4 text-gray-800 hover:text-orange-400">Home</a>
+                    <a href="#" class="ml-4 text-gray-800 hover:text-orange-400">Dashboard</a>
+                    <a href="#" class="ml-4 text-gray-800 hover:text-orange-400">Analyzer</a>
+                </div>
+            </div>
+            <!-- Tombol Hamburger untuk Tampilan Responsif -->
+            <div class="flex md:hidden">
+                <button id="mobile-menu-btn" class="outline-none mobile-menu-btn">
+                    <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="h-1 bg-[#f2a057]"></div>
+    <!-- Menu Dropdown untuk Tampilan Responsif -->
+    <div id="mobile-menu" class="hidden md:hidden">
+        <a href="#" class="block py-2 px-4 text-sm text-gray-800 hover:text-orange-400">Home</a>
+        <a href="#" class="block py-2 px-4 text-sm text-gray-800 hover:text-orange-400">Dashboard</a>
+        <a href="#" class="block py-2 px-4 text-sm text-gray-800 hover:text-orange-400">Analyzer</a>
+    </div>
+</nav>
+<section style="font-family: Montserrat" class="py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-6">
+        <div class="md:flex md:items-center md:justify-between">
+            <div class="md:w-1/2">
+                <h1 class="text-6xl font-bold">Rumah-in: Real Estate Analyzer</h1>
+                <p class="mt-4 text-lg">Punya Properti Yang Ingin Dijual?<br>Yuk langsung Gunakan Layanan Analyzer Kami!</p>
+                <button class="mt-6 px-6 py-3 bg-[#f2a057] text-white font-semibold rounded-lg hover:bg-orange-400">Analyzer</button>
+            </div>
+            <div class="lg:px-32 mt-8 md:mt-0 md:ml-8 md:w-1/2">
+                <img src="https://i.ibb.co/sbrQCc6/Rumah-Rumah-2.png" alt="Rumah-preview" class="w-auto h-auto">
+            </div>
+        </div>
+    </div>
+</section>
+<section style="font-family: Montserrat" class="py-12 bg-[#f2a057]">
+    <div class="container mx-auto text-center">
+        <h2 class="mt-12 mb-14 text-4xl font-bold text-white">Rumah Paling Baru</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="bg-white rounded-lg overflow-hidden shadow-lg">
+                <img src="https://i.ibb.co/4Jm1PBV/Rumah-1.png" alt="Rumah 1" class="w-full h-64 object-cover">
+                <div class="p-4">
+                    <h3 class="text-lg font-semibold">Dijual Family House Blabl abla bla</h3>
+                    <p class="text-gray-600 mt-2">Sumber : Rumah123</p>
+                </div>
+            </div>
+            <div class="bg-white rounded-lg overflow-hidden shadow-lg">
+                <img src="https://i.ibb.co/4Jm1PBV/Rumah-1.png" alt="Rumah 2" class="w-full h-64 object-cover">
+                <div class="p-4">
+                    <h3 class="text-lg font-semibold">Dijual Family House Blabl abla bla</h3>
+                    <p class="text-gray-600 mt-2">Sumber : Rumah123</p>
+                </div>
+            </div>
+            <div class="bg-white rounded-lg overflow-hidden shadow-lg">
+                <img src="https://i.ibb.co/4Jm1PBV/Rumah-1.png" alt="Rumah 3" class="w-full h-64 object-cover">
+                <div class="p-4">
+                    <h3 class="text-lg font-semibold">Dijual Family House Blabl abla bla</h3>
+                    <p class="text-gray-600 mt-2">Sumber : Rumah123</p>
+                </div>
+            </div>
+        </div>
+        <a href="#" class="mt-14 inline-block text-white text-lg font-medium hover:underline">Lihat Selengkapnya ></a>
+    </div>
+
+</section>
+
+<section style="font-family: Montserrat" class="py-12 bg-white">
+    <div class="container mx-auto text-center">
+        <h2 class="mt-12 mb-14 text-4xl font-bold mb-8">Tim Kami</h2>
+        <div class="flex flex-wrap justify-center space-x-12 mt-20 mb-20">
+            <div class="text-center">
+                <img src="https://i.ibb.co.com/BZLV1NL/Whats-App-Image-2024-06-03-at-20-41-1.png" alt="Naila Shakira" class="w-40 h-40 object-cover rounded-full mx-auto">
+                <h3 class="mt-4 font-semibold">Naila Shakira</h3>
+            </div>
+            <div class="text-center">
+                <img src="https://i.ibb.co.com/thjNRLp/DSC00630-1.png" alt="Denis M. Jethro" class="w-40 h-40 object-cover rounded-full mx-auto">
+                <h3 class="mt-4 font-semibold">Denis M. Jethro</h3>
+            </div>
+            <div class="text-center">
+                <img src="https://i.ibb.co.com/mNVC1SQ/Porto-1.png" alt="R. Firdaus Dharma" class="w-40 h-40 object-cover rounded-full mx-auto">
+                <h3 class="mt-4 font-semibold">R. Firdaus Dharma</h3>
+            </div>
+            <div class="text-center">
+                <img src="https://i.ibb.co.com/F8rVGKS/Whats-App-Image-2024-06-03-at-20-36-1-1.png" alt="Christeigen T." class="w-40 h-40 object-cover rounded-full mx-auto">
+                <h3 class="mt-4 font-semibold">Christeigen T.</h3>
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+    document.getElementById("mobile-menu-btn").addEventListener("click", function() {
+        var mobileMenu = document.getElementById("mobile-menu");
+        mobileMenu.classList.toggle("hidden");
+    });
+</script>
+</body>
+</html>
