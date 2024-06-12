@@ -1,5 +1,4 @@
 import pandas as pd
-# from sklearn.preprocessing import LabelEncoder
 import pickle
 import numpy as np
 
@@ -36,7 +35,7 @@ def encode_and_fillna(df, columns):
     df.ffill(inplace=True)
 
     for col in columns:
-        with open(f'./web/auto/script/preprocess/labelencoder/label_encoder_{col}.pkl', 'rb') as f:
+        with open(f'./auto/script/preprocess/labelencoder/label_encoder_{col}.pkl', 'rb') as f:
             le = pickle.load(f)
             df[col] = le.transform(df[col].astype(str))
     return df
