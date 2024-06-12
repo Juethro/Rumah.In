@@ -38,7 +38,8 @@ def get_first_data(driver, page, connection, log):
         "kecamatan" : [],
         "luas_tanah_front" : [],
         "luas_bangunan_front" : [],
-        "link" : []
+        "link" : [],
+        "images_link" : []
     }
     for i in tqdm(range(page), desc="Get Cover Data"):
         url = f'https://www.rumah123.com/jual/cari/?location=surabaya&page={i+1}'
@@ -50,8 +51,10 @@ def get_first_data(driver, page, connection, log):
             continue
         content = driver.page_source
         soup = BeautifulSoup(content, 'html.parser')
+        images_class = soup.find_all(class_="ui-organism-intersection__element intersection-card-container")
         section_class = soup.find_all(class_="card-featured__middle-section")
-        for section in section_class:
+        for section, image in zip(section_class, images_class):
+            data["images_link"].append(image.find("img").get('src'))
             data["judul"].append(section.find("h2").get_text())
             data["harga"].append(section.find("strong").get_text())
             data["cicilan"].append(section.find("em").get_text())
