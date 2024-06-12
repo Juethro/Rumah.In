@@ -35,7 +35,7 @@ def encode_and_fillna(df, columns):
     df.ffill(inplace=True)
 
     for col in columns:
-        with open(f'./auto/script/preprocess/labelencoder/label_encoder_{col}.pkl', 'rb') as f:
+        with open(f'/app/auto/script/preprocess/labelencoder/label_encoder_{col}.pkl', 'rb') as f:
             le = pickle.load(f)
             df[col] = le.transform(df[col].astype(str))
     return df

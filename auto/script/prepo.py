@@ -17,7 +17,7 @@ def main_process(df):
     unique_kecamatan = pd.DataFrame(df['kecamatan'].unique(), columns=['Kecamatan'])
 
     # Load unique_location
-    unique_location = pd.read_csv('./auto/script/preprocess/location_1.csv')
+    unique_location = pd.read_csv('/app/auto/script/preprocess/location_1.csv')
 
     # Gabungkan data lokasi dengan data utama
     df = df.merge(unique_location, left_on='kecamatan', right_on='kecamatan', how='left')
