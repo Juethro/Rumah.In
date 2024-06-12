@@ -4,6 +4,21 @@ from django.views.generic import TemplateView
 from .utils import make_markers_and_add_to_map
 import plotly.graph_objs as go
 import plotly.io as pio
+from users.models import Properti, Training
+from django.core import serializers
+import pandas as pd
+import json
+
+data_properti = serializers.serialize('json', Properti.objects.all())
+data_training = serializers.serialize('json', Training.objects.all())
+data_training = json.loads(data_training)
+data_list = []
+for i in range(len(data_training)):
+    temp = data_training[i]["fields"]
+    data_list.append(temp)
+data_training = pd.DataFrame(data_list)
+print("training :", data_training)
+print("value counts : \n", data_training.value_counts("label"))
 
 def details(request):
     return render(request, 'details.html')
@@ -38,7 +53,7 @@ class MapView(TemplateView):
         values = [4500, 2500, 1053, 500]
         fig = go.Figure(data=[go.Pie(labels=labels, values=values, hole=0.5)])
         fig.update_layout(
-            annotations=[dict(text='Categories', x=0.5, y=0.5, font_size=20, showarrow=False)]
+            annotations=[dict(text='Class', x=0.5, y=0.5, font_size=20, showarrow=False)]
         )
         donut_chart_html = pio.to_html(fig, full_html=False)
 
