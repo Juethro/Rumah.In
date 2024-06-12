@@ -25,8 +25,7 @@ SECRET_KEY = 'django-insecure-dckgo371xt=6=f*@o*!0gt#z*!k7qrp*e=es3t$8klw_(9a!$y
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = ['0.0.0.0', '127.0.0.1']
 
 # Application definition
 
@@ -37,6 +36,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_extensions',
     'users',
     'tailwind',
     'theme',
@@ -83,7 +83,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'django_tester',
         'USER': 'root',
-        'PASSWORD': '',
+        'PASSWORD': 'my-secret-pw',
         'HOST': '127.0.0.1',
         'PORT': '3306'
     }
@@ -136,4 +136,4 @@ TAILWIND_APP_NAME = 'theme'
 INTERNAL_IPS = [
     "127.0.0.1",
 ]
-NPM_BIN_PATH = "C:/Program Files/nodejs/npm.cmd"
+NPM_BIN_PATH = "/usr/bin/npm"

@@ -25,7 +25,7 @@ def main():
     log_handler(conn, log, "Model Fetching Data...")
     try:
         df = pd.read_sql('users_training', con=engine)
-        df = df.drop(columns=['id','judul', 'link', 'kecamatan_1'])
+        df = df.drop(columns=['id','judul', 'link', 'images_link','kecamatan_1'])
         X = df.drop(columns=['harga'])
         y = df.harga
         # X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25, random_state=42)
@@ -55,7 +55,7 @@ def main():
         current_time = datetime.datetime.now()
         filename = f"model_{current_time}.pickle"
         model_input(conn, modelregresi, f'/web/auto/models/{filename}')
-        with open(f'./web/auto/models/{filename}', 'wb') as f:
+        with open(f'./auto/models/{filename}', 'wb') as f:
             pickle.dump(grid_search, f)
     except Exception as e:
         log_handler(conn, log, "Model Export Failed!")

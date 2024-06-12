@@ -1,6 +1,6 @@
 from sqlalchemy import insert
 from script.preprocess.preprocessing import clean_data
-# from preprocess.mapping_location import add_location_data
+from script.preprocess.clustering import labeling
 import pandas as pd
 import datetime
 import time
@@ -17,7 +17,7 @@ def main_process(df):
     unique_kecamatan = pd.DataFrame(df['kecamatan'].unique(), columns=['Kecamatan'])
 
     # Load unique_location
-    unique_location = pd.read_csv('./web/auto/script/preprocess/location_1.csv')
+    unique_location = pd.read_csv('/app/auto/script/preprocess/location_1.csv')
 
     # Gabungkan data lokasi dengan data utama
     df = df.merge(unique_location, left_on='kecamatan', right_on='kecamatan', how='left')
@@ -31,9 +31,10 @@ def main_process(df):
     cleaned_df.drop(columns=['distance_gerbangtol_unique','distance_school_unique','distance_hospital_unique','distance_tokoobat_unique', 'Unnamed: 0', 'kecamatan_unique'], inplace=True)
 
     return cleaned_df
+
 def miss_handler(df):
     desired_columns = [
-        'judul', 'harga', 'kecamatan', 'link', 'kamar_tidur', 'kamar_mandi',
+        'judul', 'harga', 'kecamatan', 'link', 'images_link','kamar_tidur', 'kamar_mandi',
         'luas_tanah', 'luas_bangunan', 'carport', 'sertifikat', 'daya_listrik',
         'kamar_pembantu', 'kamar_mandi_pembantu', 'dapur', 'ruang_makan',
         'ruang_tamu', 'kondisi_perabotan', 'jumlah_lantai', 'hadap',
@@ -49,14 +50,18 @@ def miss_handler(df):
         'lapangan_tenis', 'lapangan_voli', 'masjid', 'one_gate_system',
         'pemanas_air', 'separate_dining_room', 'taman', 'tempat_gym',
         'tempat_jemuran', 'tempat_laundry', 'wastafel', 'kecamatan_1',
-        'latitude', 'longitude'
+        'latitude', 'longitude', 'label'
     ]
-
+    
     for col in desired_columns:
-        if col not in df.columns:
+        if col not in df.columns.astype(str):
             df[col] = 0
+
     # Urutkan kolom sesuai daftar kolom yang diinginkan
     df = df[desired_columns]
+
+    label = labeling(df)
+    df['label'] = label
 
     return df
 

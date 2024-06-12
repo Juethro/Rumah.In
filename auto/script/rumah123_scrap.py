@@ -107,7 +107,17 @@ def get_all_data(df_cover, driver, connection, log):
     return save_list
 
 def miss_handler_n_filter(df, scraped_link):
-    desired_columns = ['judul', 'harga', 'cicilan', 'kecamatan', 'luas_tanah_front', 'luas_bangunan_front', 'link', 'fasilitas', 'last_update','kamar_tidur', 'kamar_mandi', 'luas_tanah', 'luas_bangunan', 'carport', 'tipe_properti', 'sertifikat', 'daya_listrik', 'kamar_pembantu', 'kamar_mandi_pembantu', 'dapur', 'ruang_makan', 'ruang_tamu', 'kondisi_perabotan', 'material_bangunan', 'material_lantai', 'jumlah_lantai', 'hadap', 'konsep_dan_gaya_rumah', 'pemandangan', 'terjangkau_internet', 'lebar_jalan', 'tahun_dibangun', 'tahun_di_renovasi', 'sumber_air', 'hook', 'kondisi_properti', 'tipe_iklan', 'id_iklan', 'deskripsi', 'garasi', 'nomor_lantai']
+    desired_columns = [
+        'judul', 'harga', 'cicilan', 'kecamatan', 'luas_tanah_front', 
+        'luas_bangunan_front', 'link','images_link', 'fasilitas', 'last_update',
+        'kamar_tidur', 'kamar_mandi', 'luas_tanah', 'luas_bangunan', 
+        'carport', 'tipe_properti', 'sertifikat', 'daya_listrik', 
+        'kamar_pembantu', 'kamar_mandi_pembantu', 'dapur', 
+        'ruang_makan', 'ruang_tamu', 'kondisi_perabotan', 'material_bangunan', 
+        'material_lantai', 'jumlah_lantai', 'hadap', 'konsep_dan_gaya_rumah', 
+        'pemandangan', 'terjangkau_internet', 'lebar_jalan', 'tahun_dibangun', 
+        'tahun_di_renovasi', 'sumber_air', 'hook', 'kondisi_properti', 
+        'tipe_iklan', 'id_iklan', 'deskripsi', 'garasi', 'nomor_lantai']
 
     for col in desired_columns:
         if col not in df.columns:
@@ -147,7 +157,6 @@ def main(connection, log, engine, scraped,scraped_link):
         log_handler(connection, log, 'Data is Up To Date!')
     else:
         log_handler(connection, log, 'Exporting Data...')
-        # df_full.to_csv('users_properti.csv', index=False)
         df_full.to_sql('users_properti', con=engine, index=False, if_exists='append')
 
     stop = time.time()
