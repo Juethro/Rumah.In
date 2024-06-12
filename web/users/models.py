@@ -125,4 +125,5 @@ class Training(models.Model):
     kecamatan_1 = models.CharField(max_length=255)
     latitude = models.FloatField(max_length=100)
     longitude = models.FloatField(max_length=100)
+    label = models.IntegerField()
     

@@ -29,10 +29,10 @@ def main():
 
     # Preprocessing (Belum Selesai)
     log_handler(connection, log, "Preprocessing Start...")
-    try:
-        prepo.main(connection, log, engine)
-    except Exception as e:
-        log_handler(connection, log, "Preprocessing Failed!")
+    # try:
+    prepo.main(connection, log, engine)
+    # except Exception as e:
+    #     log_handler(connection, log, "Preprocessing Failed!")
     
     connection.close()
 

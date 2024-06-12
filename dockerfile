@@ -4,6 +4,9 @@ FROM python:3.10
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
+# Install NPM tailwindcss
+RUN apt-get update && apt-get install -y npm
+
 # Set working directory di dalam kontainer
 WORKDIR /app
 
@@ -15,6 +18,13 @@ RUN pip install -r requirements.txt
 
 # Salin semua file ke workdir
 COPY . .
+
+# Pindah ke folder theme/static_src dan install npm dependencies
+WORKDIR /app/web/theme/static_src
+RUN npm install
+
+# Pindah ke folder web
+WORKDIR /app/web
 
 # Membuka akses ke port 8000
 EXPOSE 8000
