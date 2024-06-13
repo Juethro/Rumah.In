@@ -25,6 +25,7 @@ RUN npm install
 
 # Pindah ke folder web
 WORKDIR /app/web
+RUN python manage.py tailwind build
 
 # Membuka akses ke port 8000
 EXPOSE 8000

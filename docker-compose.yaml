@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  db:
+    image: mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=my-secret-pw
+      - MYSQL_DATABASE=django_tester
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=my-secret-pw
+    volumes:
+      - ./mysql-data:/var/lib/mysql
+    expose:
+      - 3306
+
+  web:
+    build: .
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
