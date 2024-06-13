@@ -4,19 +4,32 @@ services:
   db:
     image: mysql
     environment:
-      - MYSQL_ROOT_PASSWORD=my-secret-pw
-      - MYSQL_DATABASE=django_tester
-      - MYSQL_USER=root
-      - MYSQL_PASSWORD=my-secret-pw
+      MYSQL_ROOT_PASSWORD: my-secret-pw
+      MYSQL_DATABASE: django_tester
     volumes:
-      - ./mysql-data:/var/lib/mysql
+      - mysql-data:/var/lib/mysql
+    ports:
+      - 3306:3306
     expose:
-      - 3306
+      - "3306"
 
   web:
-    build: .
+    build: 
+      context: .
+      dockerfile: dockerfile
     command: python manage.py runserver 0.0.0.0:8000
     volumes:
       - .:/app
     ports:
       - "8000:8000"
+    depends_on:
+      - db
+    environment:
+      - DATABASE_NAME=django_tester
+      - DATABASE_USER=root
+      - DATABASE_PASSWORD=my-secret-pw
+      - DATABASE_HOST=db
+      - DATABASE_PORT=3306
+
+volumes:
+  mysql_data:
