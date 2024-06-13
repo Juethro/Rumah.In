@@ -1,0 +1,44 @@
+{% load static tailwind_tags %}
+<html>
+    <head>
+        <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Rumah.In</title>
+    <!--    Tailwind-->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!--    Font-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Mitr:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Mitr:wght@200;300;400;500;600;700&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+        {% tailwind_css %}
+        
+    </head>
+    {% include "navbar.html" %}
+    <div class = "p-20 bg-gray-100 flex flex-col gap-12">
+        <h1 class = "text-4xl font-semibold">Rumah Baru Mewah Citraland Dekat Pakuwon Indah, Graha Family</h1>
+        <div class = "flex flex-row gap-12">
+            <div class = "basis-1/2">
+                <img src = "../static/images/rumah.jpg" class = "rounded-lg w-5/6">
+                <div class = "text-sky-700 font-medium underline text-xl pt-6 pb-4" style="font-family: Mitr">Deskripsi</div>
+                <div>
+                    {{desc}}
+                </div>
+            </div>
+            <div class ="basis-1/2 flex flex-col gap-4">
+                <div class = "text-sky-700 font-medium underline text-xl" style="font-family: Mitr">More Details</div>
+                <div class = "max-h-screen bg-white rounded-2xl p-7 flex flex-col gap-1 text-lg flex-grow overflow-y-auto">
+                    {% for key, value in data.items %}
+                        <h1><strong>{{ key }}:</strong> {{ value }}</h1>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</html>

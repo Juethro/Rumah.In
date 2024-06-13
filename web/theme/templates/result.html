@@ -1,0 +1,83 @@
+{% load static tailwind_tags %}
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport"
+            content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Rumah.In</title>
+        <!--    Tailwind-->
+        <script src="https://cdn.tailwindcss.com"></script>
+
+        <!--    Font-->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Mitr:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Mitr:wght@200;300;400;500;600;700&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+        {% tailwind_css %}
+        
+        {{map.header.render|safe}}
+    </head>
+    {% include "navbar.html" %}
+    <div class = "p-20 bg-gray-100 flex flex-col gap-8">
+        <h1 class = "text-4xl font-semibold">Hasil Analisis</h1>
+        <div>
+            <h1 class = "text-sky-700 font-medium underline text-2xl pb-4">Rumah Dengan Kelas Yang Sama</h1>
+            <div class = "flex flex-row">
+                <div id="map" class = "basis-1/2">
+                    {{ map|safe }}
+                </div>
+                <div class="basis-1/2 flex flex-col gap-1 overflow-y-auto">
+                    {% for title, location, link in data %}
+                    <button href="{% url 'details' %}" name = "{{link}}" class="h-full content-center">
+                        <div class="p-4 bg-white rounded-br-xl rounded-tr-xl flex flex-col gap-3 h-full content-center">
+                            <h1 class="text-xl">{{ title }}</h1>
+                            <text class="text-sm text-neutral-500">{{ location }}</text>
+                        </div>
+                    </button>
+                    {% endfor %}
+                </div>
+                
+            </div>
+        </div>
+        <div class = "prediction bg-white rounded-2xl p-6">
+            <div class = "prediction-number flex">
+                <div class = "basis-1/4 flex flex-col items-center">
+                    <h1 class = "text-sky-700 font-medium underline text-2xl text-center">Penawaran Terendah</h1>
+                    <text class = "font-bold text-2xl text-center">Rp1.200.000.000</text>
+                </div>
+                <div class = "basis-1/4 flex flex-col items-center">
+                    <h1 class = "text-sky-700 font-medium underline text-2xl text-center">Penawaran Tertinggi</h1>
+                    <text class = "font-bold text-2xl text-center">Rp1.800.000.000</text>
+                </div>
+                <div class = "basis-1/4 flex flex-col items-center">
+                    <h1 class = "text-sky-700 font-medium underline text-2xl text-center">Penawaran Ideal</h1>
+                    <text class = "font-bold text-2xl text-center">Rp1.500.000.000</text>
+                </div>
+                <div class = "basis-1/4 flex flex-col items-center">
+                    <h1 class = "text-sky-700 font-medium underline text-2xl text-center">Kelas Rumah</h1>
+                    <text class = "font-bold text-2xl text-center">Class 6</text>
+                </div>
+            </div>
+            <div class = "clusters-charts flex flex-row">
+                <div id="donut-chart" class = "w-1/3 flex flex-col">
+                    {{ donut_chart|safe }}
+                    <p class = "text-sky-700 font-medium underline text-xl text-center">Jumlah Rumah Kelas 6 (%)</p>
+                </div>
+                <div id="bar-chart" class = "w-2/3 flex flex-col">
+                    {{bar_chart|safe}}
+                    <p class = "text-sky-700 font-medium underline text-xl text-center">Kawasan Rumah Kelas 6</p>
+                </div>
+            </div>
+        </div>
+        <div class = "bg-white rounded-2xl p-6">
+            <text class = "text-sky-700 font-medium underline text-2xl">Fluktuasi Harga Rumah Kelas 6</text>
+            <div id = "line-chart">
+                {{line_chart|safe}}
+            </div>
+        </div>
+    </div>
+</html>

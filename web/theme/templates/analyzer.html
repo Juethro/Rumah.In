@@ -1,0 +1,295 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Analyzer</title>
+
+    <!--    Tailwind-->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!--    Font-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Mitr:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Mitr:wght@200;300;400;500;600;700&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+</head>
+<body>
+    {% include "navbar.html" %}
+
+<section style="font-family: Montserrat" class="py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-6">
+        <div class="md:flex md:items-center md:justify-between">
+            <div class="md:w-1/2">
+                <h1 class="text-2xl">Prediksi Harga Rumah</h1>
+                <p class="mt-4 text-lg">Isi Formulir Berikut Untuk Mengetahui Berapa Harga Pasaran</p>
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+    document.getElementById("mobile-menu-btn").addEventListener("click", function() {
+        var mobileMenu = document.getElementById("mobile-menu");
+        mobileMenu.classList.toggle("hidden");
+    });
+</script>
+
+<section class="bg-gray-100 p-8" style="font-family: Montserrat">
+    <div class="max-w-7xl mx-auto bg-white p-8 rounded-lg shadow-lg">
+        <h1 class="text-3xl font-bold mb-8 text-center">Rincian Rumah</h1>
+        <form class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+            <div class="col-span-1 sm:col-span-2 md:col-span-1">
+                <label class="block text-sm font-medium text-gray-700 mb-1">Luas Bangunan</label>
+                <input type="text" placeholder="Masukkan luas bangunan" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
+            </div>
+            <div class="col-span-1 sm:col-span-2 md:col-span-1">
+                <label class="block text-sm font-medium text-gray-700 mb-1">Luas Tanah</label>
+                <input type="text" placeholder="Masukkan luas tanah" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
+            </div>
+            <div class="col-span-1 sm:col-span-2 md:col-span-1">
+                <label class="block text-sm font-medium text-gray-700 mb-1">Tahun Dibangun</label>
+                <input type="text" placeholder="Masukkan tahun dibangun" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
+            </div>
+            <div class="col-span-1 sm:col-span-2 md:col-span-1">
+                <label class="block text-sm font-medium text-gray-700 mb-1">Tahun Direnovasi</label>
+                <input type="text" placeholder="Masukkan tahun direnovasi" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
+            </div>
+            <!-- Terjangkau Internet -->
+            <div class="col-span-1 sm:col-span-2 md:col-span-1">
+                <label class="block text-sm font-medium text-gray-700 mb-1">Terjangkau Internet</label>
+                <select class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
+                    <option>Ya</option>
+                    <option>Tidak</option>
+                </select>
+            </div>
+
+            <!-- Rumah Hook -->
+            <div class="col-span-1 sm:col-span-2 md:col-span-1">
+                <label class="block text-sm font-medium text-gray-700 mb-1">Rumah Hook</label>
+                <select class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
+                    <option>Ya</option>
+                    <option>Tidak</option>
+                </select>
+            </div>
+
+            <!-- Fasilitas -->
+            <div class="col-span-1 sm:col-span-2 md:col-span-3">
+                <span class="block text-sm font-medium text-gray-700 mb-1">Fasilitas</span>
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 mt-1">
+                    <div class="flex items-center">
+                        <input type="checkbox" id="kolamRenang" class="rounded text-blue-600 focus:ring-blue-500">
+                        <label for="kolamRenang" class="ml-2 text-gray-700">Kolam Renang</label>
+                    </div>
+                    <div class="flex items-center">
+                        <input type="checkbox" id="lapanganBasket" class="rounded text-blue-600 focus:ring-blue-500">
+                        <label for="lapanganBasket" class="ml-2 text-gray-700">Lapangan Basket</label>
+                    </div>
+                    <div class="flex items-center">
+                        <input type="checkbox" id="taman" class="rounded text-blue-600 focus:ring-blue-500">
+                        <label for="taman" class="ml-2 text-gray-700">Taman</label>
+                    </div>
+                    <div class="flex items-center">
+                        <input type="checkbox" id="tempatGym" class="rounded text-blue-600 focus:ring-blue-500">
+                        <label for="tempatGym" class="ml-2 text-gray-700">Tempat GYM</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Kawasan -->
+            <div class="col-span-1 sm:col-span-2 md:col-span-1">
+                <label class="block text-sm font-medium text-gray-700 mb-1">Kawasan</label>
+                <select class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
+                    <option>Citraland</option>
+                    <option>Graha Family</option>
+                    <option>Jambangan</option>
+                </select>
+            </div>
+
+            <!-- Sertifikat -->
+            <div class="col-span-1 sm:col-span-2 md:col-span-1">
+                <label class="block text-sm font-medium text-gray-700 mb-1">Sertifikat</label>
+                <select class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
+                    <option>SHM - Sertifikat Hak Milik</option>
+                    <option>HGB - Hak Guna Bangunan</option>
+                    <option>HS - Hak Sewa</option>
+                </select>
+            </div>
+
+            <!-- Sumber Air -->
+            <div class="col-span-1 sm:col-span-2 md:col-span-1">
+                <label class="block text-sm font-medium text-gray-700 mb-1">Sumber Air</label>
+                <select class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
+                    <option>PAM/PDAM</option>
+                    <option>Sumur Pompa</option>
+                    <option>Sumur Resapan</option>
+                </select>
+            </div>
+
+            <!-- Kondisi Perabotan -->
+            <div class="col-span-1 sm:col-span-2 md:col-span-1">
+                <label class="block text-sm font-medium text-gray-700 mb-1">Kondisi Perabotan</label>
+                <select class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
+                    <option>Furnished</option>
+                    <option>Unfurnished</option>
+                    <option>Semi Furnished</option>
+                </select>
+            </div>
+
+            <!-- Kondisi Rumah -->
+            <div class="col-span-1 sm:col-span-2 md:col-span-1">
+                <label class="block text-sm font-medium text-gray-700 mb-1">Kondisi Rumah</label>
+                <select class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
+                    <option>Butuh Renovasi</option>
+                    <option>Baru</option>
+                    <option>Sudah Renovasi</option>
+                </select>
+            </div>
+
+            <!-- Pemandangan -->
+            <div class="col-span-1 sm:col-span-2 md:col-span-1">
+                <label class="block text-sm font-medium text-gray-700 mb-1">Pemandangan</label>
+                <select class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
+                    <option>Pemukiman Warga</option>
+                    <option>Taman Kota</option>
+                    <option>Perkotaan</option>
+                </select>
+            </div>
+
+            <!-- Material Bangunan -->
+            <div class="col-span-1 sm:col-span-2 md:col-span-3">
+                <span class="block text-sm font-medium text-gray-700 mb-1">Material Bangunan</span>
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 mt-1">
+                    <div class="flex items-center">
+                        <input type="checkbox" id="batako" class="rounded text-blue-600 focus:ring-blue-500">
+                        <label for="batako" class="ml-2 text-gray-700">Batako</label>
+                    </div>
+                    <div class="flex items-center">
+                        <input type="checkbox" id="beton" class="rounded text-blue-600 focus:ring-blue-500">
+                        <label for="beton" class="ml-2 text-gray-700">Beton</label>
+                    </div>
+                    <div class="flex items-center">
+                        <input type="checkbox" id="bataHebel" class="rounded text-blue-600 focus:ring-blue-500">
+                        <label for="bataHebel" class="ml-2 text-gray-700">Bata Hebel</label>
+                    </div>
+                    <div class="flex items-center">
+                        <input type="checkbox" id="bataMerah" class="rounded text-blue-600 focus:ring-blue-500">
+                        <label for="bataMerah" class="ml-2 text-gray-700">Bata Merah</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Material Lantai -->
+            <div class="col-span-1 sm:col-span-2 md:col-span-3">
+                <span class="block text-sm font-medium text-gray-700 mb-1">Material Lantai</span>
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 mt-1">
+                    <div class="flex items-center">
+                        <input type="checkbox" id="vinyl" class="rounded text-blue-600 focus:ring-blue-500">
+                        <label for="vinyl" class="ml-2 text-gray-700">Vinyl</label>
+                    </div>
+                    <div class="flex items-center">
+                        <input type="checkbox" id="marmer" class="rounded text-blue-600 focus:ring-blue-500">
+                        <label for="marmer" class="ml-2 text-gray-700">Marmer</label>
+                    </div>
+                    <div class="flex items-center">
+                        <input type="checkbox" id="granit" class="rounded text-blue-600 focus:ring-blue-500">
+                        <label for="granit" class="ml-2 text-gray-700">Granit</label>
+                    </div>
+                    <div class="flex items-center">
+                        <input type="checkbox" id="keramik" class="rounded text-blue-600 focus:ring-blue-500">
+                        <label for="keramik" class="ml-2 text-gray-700">Keramik</label>
+                    </div>
+                    <div class="flex items-center">
+                        <input type="checkbox" id="ubin" class="rounded text-blue-600 focus:ring-blue-500">
+                        <label for="ubin" class="ml-2 text-gray-700">Ubin</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Number Inputs -->
+            <div class="col-span-1 sm:col-span-2 md:col-span-1">
+                <label class="block text-sm font-medium text-gray-700 mb-1">Jumlah Lantai</label>
+                <input type="text" placeholder="Masukkan jumlah lantai" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
+            </div>
+            <div class="col-span-1 sm:col-span-2 md:col-span-1">
+                <label class="block text-sm font-medium text-gray-700 mb-1">Jumlah Kamar Tidur</label>
+                <input type="text" placeholder="Masukkan jumlah kamar tidur" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
+            </div>
+            <div class="col-span-1 sm:col-span-2 md:col-span-1">
+                <label class="block text-sm font-medium text-gray-700 mb-1">Jumlah Kamar Mandi</label>
+                <input type="text" placeholder="Masukkan jumlah kamar mandi" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
+            </div>
+            <div class="col-span-1 sm:col-span-2 md:col-span-1">
+                <label class="block text-sm font-medium text-gray-700 mb-1">Jumlah Kamar Pembantu</label>
+                <input type="text" placeholder="Masukkan jumlah kamar pembantu" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
+            </div>
+            <div class="col-span-1 sm:col-span-2 md:col-span-1">
+                <label class="block text-sm font-medium text-gray-700 mb-1">Jumlah Kamar Mandi Pembantu</label>
+                <input type="text" placeholder="Masukkan jumlah kamar mandi pembantu" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
+            </div>
+            <div class="col-span-1 sm:col-span-2 md:col-span-1">
+                <label class="block text-sm font-medium text-gray-700 mb-1">Jumlah Ruang Tamu</label>
+                <input type="text" placeholder="Masukkan jumlah ruang tamu" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
+            </div>
+            <div class="col-span-1 sm:col-span-2 md:col-span-1">
+                <label class="block text-sm font-medium text-gray-700 mb-1">Jumlah Ruang Makan</label>
+                <input type="text" placeholder="Masukkan jumlah ruang makan" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
+            </div>
+
+            <div class="col-span-1 sm:col-span-2 md:col-span-1">
+                <label class="block text-sm font-medium text-gray-700 mb-1">Jumlah Carport</label>
+                <input type="text" placeholder="Masukkan jumlah carport" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
+            </div>
+            <div class="col-span-1 sm:col-span-2 md:col-span-1">
+                <label class="block text-sm font-medium text-gray-700 mb-1">Jumlah Garasi</label>
+                <input type="text" placeholder="Masukkan jumlah garasi" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
+            </div>
+            <div class="col-span-1 sm:col-span-2 md:col-span-1">
+                <label class="block text-sm font-medium text-gray-700 mb-1">Jumlah Dapur</label>
+                <input type="text" placeholder="Masukkan jumlah dapur" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
+            </div>
+            <div class="col-span-1 sm:col-span-2 md:col-span-1">
+                <label class="block text-sm font-medium text-gray-700 mb-1">Lebar Jalan (Cukup Berapa Mobil)</label>
+                <input type="text" placeholder="Masukkan lebar jalan" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
+            </div>
+
+            <!-- Jarak Rumah -->
+            <div class="col-span-1 sm:col-span-2 md:col-span-3">
+                <label class="block text-md font-medium text-gray-700 mb-1">Jarak Rumah</label>
+                <div class="mt-1 space-y-2">
+                    <div>
+                        <label class="text-sm text-gray-700">Sekolah</label>
+                        <input type="range" min="0" max="5" class="w-full">
+                    </div>
+                    <div>
+                        <label class="text-sm text-gray-700">Rumah Sakit</label>
+                        <input type="range" min="0" max="5" class="w-full">
+                    </div>
+                    <div>
+                        <label class="text-sm text-gray-700">Toko Obat</label>
+                        <input type="range" min="0" max="5" class="w-full">
+                    </div>
+                    <div>
+                        <label class="text-sm text-gray-700">Gerbang Tol</label>
+                        <input type="range" min="0" max="5" class="w-full">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="col-span-1 sm:col-span-2 md:col-span-3">
+<!--                bg-[#f2a057] text-white font-semibold rounded-lg hover:bg-orange-400-->
+                <!-- <button type="submit" class="w-full py-2 px-4 bg-[#f2a057] text-white font-semibold rounded-md shadow-md hover:bg-orange-400 focus:outline-none focus:ring-2 focus:ring-orange-400 focus:ring-opacity-50">Submit</button> -->
+                <a href="{% url 'result' %}" class="w-full">
+                    <button type="button" class="w-full py-2 px-4 bg-[#f2a057] text-white font-semibold rounded-md shadow-md hover:bg-orange-400 focus:outline-none focus:ring-2 focus:ring-orange-400 focus:ring-opacity-50">Submit</button>
+                </a>
+            </div>
+        </form>
+    </div>
+</section>
+</body>
+</html>
