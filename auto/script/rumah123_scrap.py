@@ -31,16 +31,7 @@ stealth(driver,
 
 
 def get_first_data(driver, page, connection, log):
-    data = {
-        "judul" : [],
-        "harga" : [],
-        "cicilan" : [],
-        "kecamatan" : [],
-        "luas_tanah_front" : [],
-        "luas_bangunan_front" : [],
-        "link" : [],
-        "images_link" : []
-    }
+    data_list = []
     for i in tqdm(range(page), desc="Get Cover Data"):
         url = f'https://www.rumah123.com/jual/cari/?location=surabaya&page={i+1}'
         try:
@@ -54,20 +45,26 @@ def get_first_data(driver, page, connection, log):
         images_class = soup.find_all(class_="ui-organism-intersection__element intersection-card-container")
         section_class = soup.find_all(class_="card-featured__middle-section")
         for section, image in zip(section_class, images_class):
-            data["images_link"].append(image.find("img").get('src'))
-            data["judul"].append(section.find("h2").get_text())
-            data["harga"].append(section.find("strong").get_text())
-            data["cicilan"].append(section.find("em").get_text())
-            data["kecamatan"].append([kecamatan.get_text() for kecamatan in section.find_all("span") if "Surabaya" in kecamatan.get_text()][0])
-            data["luas_tanah_front"].append(section.find_all(class_ = "attribute-info")[0].get_text().replace("LT : ", ""))
-            try:
-                data["luas_bangunan_front"].append(section.find_all(class_ = "attribute-info")[1].get_text().replace("LB : ", ""))
-            except:
-                data["luas_bangunan_front"].append("")
-            data["link"].append(section.a["href"])
+            data = {}
+            data["images_link"] = image.find("img").get('src')
+            data["judul"] = section.find("h2").get_text()
+            data["harga"] = section.find("strong").get_text()
+            data["cicilan"] = section.find("em").get_text()
+            data["kecamatan"] = [kecamatan.get_text() for kecamatan in section.find_all("span") if "Surabaya" in kecamatan.get_text()][0]
+            infos = [info.get_text() for info in section.find_all(class_ = "attribute-info")]
+            if len(infos) < 1:
+                data["luas tanah"] = ""
+                data["luas bangunan"] = ""
+            for info in infos:
+                if "LT :" in info:
+                    data["luas tanah"] = info.replace("LT : ", "")
+                elif "LB :" in info:
+                    data["luas bangunan"] = info.replace("LB : ", "")
+            data["link"] = section.a["href"]
+            data_list.append(data)
         time.sleep(3)
 
-    df = pd.DataFrame(data)
+    df = pd.DataFrame(data_list)
     return df
 
 def get_all_data(df_cover, driver, connection, log):
@@ -110,7 +107,17 @@ def get_all_data(df_cover, driver, connection, log):
     return save_list
 
 def miss_handler_n_filter(df, scraped_link):
-    desired_columns = ['judul', 'harga', 'cicilan', 'kecamatan', 'luas_tanah_front', 'luas_bangunan_front', 'link', 'fasilitas', 'last_update','kamar_tidur', 'kamar_mandi', 'luas_tanah', 'luas_bangunan', 'carport', 'tipe_properti', 'sertifikat', 'daya_listrik', 'kamar_pembantu', 'kamar_mandi_pembantu', 'dapur', 'ruang_makan', 'ruang_tamu', 'kondisi_perabotan', 'material_bangunan', 'material_lantai', 'jumlah_lantai', 'hadap', 'konsep_dan_gaya_rumah', 'pemandangan', 'terjangkau_internet', 'lebar_jalan', 'tahun_dibangun', 'tahun_di_renovasi', 'sumber_air', 'hook', 'kondisi_properti', 'tipe_iklan', 'id_iklan', 'deskripsi', 'garasi', 'nomor_lantai']
+    desired_columns = [
+        'judul', 'harga', 'cicilan', 'kecamatan', 'luas_tanah_front', 
+        'luas_bangunan_front', 'link','images_link', 'fasilitas', 'last_update',
+        'kamar_tidur', 'kamar_mandi', 'luas_tanah', 'luas_bangunan', 
+        'carport', 'tipe_properti', 'sertifikat', 'daya_listrik', 
+        'kamar_pembantu', 'kamar_mandi_pembantu', 'dapur', 
+        'ruang_makan', 'ruang_tamu', 'kondisi_perabotan', 'material_bangunan', 
+        'material_lantai', 'jumlah_lantai', 'hadap', 'konsep_dan_gaya_rumah', 
+        'pemandangan', 'terjangkau_internet', 'lebar_jalan', 'tahun_dibangun', 
+        'tahun_di_renovasi', 'sumber_air', 'hook', 'kondisi_properti', 
+        'tipe_iklan', 'id_iklan', 'deskripsi', 'garasi', 'nomor_lantai']
 
     for col in desired_columns:
         if col not in df.columns:
@@ -150,7 +157,6 @@ def main(connection, log, engine, scraped,scraped_link):
         log_handler(connection, log, 'Data is Up To Date!')
     else:
         log_handler(connection, log, 'Exporting Data...')
-        # df_full.to_csv('users_properti.csv', index=False)
         df_full.to_sql('users_properti', con=engine, index=False, if_exists='append')
 
     stop = time.time()

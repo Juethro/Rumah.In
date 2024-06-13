@@ -32,12 +32,12 @@
                 </div>
                 <div class="basis-1/2 flex flex-col gap-1 overflow-y-auto">
                     {% for title, location, link in data %}
-                    <button href="{% url 'details' %}" name = "{{link}}" class="h-full content-center">
+                    <a href="{% url 'details' %}" name = "{{link}}" class="h-full content-center">
                         <div class="p-4 bg-white rounded-br-xl rounded-tr-xl flex flex-col gap-3 h-full content-center">
                             <h1 class="text-xl">{{ title }}</h1>
                             <text class="text-sm text-neutral-500">{{ location }}</text>
                         </div>
-                    </button>
+                    </a>
                     {% endfor %}
                 </div>
                 
