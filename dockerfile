@@ -14,6 +14,7 @@ WORKDIR /app
 COPY requirements.txt .
 
 # Install dependensi
+RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 
 # Salin semua file ke workdir
@@ -25,16 +26,9 @@ RUN npm install
 
 # Pindah ke folder web
 WORKDIR /app/web
-RUN python manage.py tailwind build
 
 # Membuka akses ke port 8000
 EXPOSE 8000
 
 # Run cron + django
 CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
-
-
-
-
-
-

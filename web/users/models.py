@@ -58,6 +58,7 @@ class Training(models.Model):
     harga = models.FloatField(max_length=100)
     kecamatan = models.IntegerField()
     link = models.TextField(max_length=20)
+    images_link = models.TextField(max_length=100)
     kamar_tidur = models.FloatField(max_length=100)
     kamar_mandi = models.FloatField(max_length=100)
     luas_tanah = models.FloatField(max_length=100)
